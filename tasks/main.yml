@@ -1,17 +1,5 @@
 # ansible-role-rutorrent/tasks/main.yml
 ---
-# -------------
-# Install plugin dependencies
-# -------------
-- name: "apt | ensure mediainfo & ffmpeg"
-  apt: name="{{ item }}"
-  with_items: ['mediainfo', 'ffmpeg']
-  when: ansible_pkg_mgr == 'apt'
-
-- name: "pkg | ensure mediainfo & ffmpeg"
-  pkgng: name="{{ item }}" state=present
-  with_items: ['mediainfo', 'ffmpeg']
-  when: ansible_pkg_mgr == 'pkgng'
 
 # -------------
 # Install rutorrent
@@ -20,10 +8,10 @@
   file: path="{{ rutorrent_dir_install }}" state=directory
 
 - name: "all | clone rutorrent repo"
-  git: 
-    repo: "{{ rutorrent_repo }}" 
-    dest: "{{ rutorrent_dir_install }}" 
-    version: "{{ rutorrent_version }}" 
+  git:
+    repo: "{{ rutorrent_repo }}"
+    dest: "{{ rutorrent_dir_install }}"
+    version: "{{ rutorrent_version }}"
     update: "{{ rutorrent_force_udpate }}"
 
 # -------------
